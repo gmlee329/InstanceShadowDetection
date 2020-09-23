@@ -36,10 +36,11 @@ COPY . .
 RUN python setup.py install
 RUN cd PythonAPI && python setup.py install
 RUN pip install flask && pip install waitress
+RUN pip install gdown
 
 # download pre-trained model checkpoint
 WORKDIR /ISD/projects/LISA/output_light/
-RUN wget https://drive.google.com/file/d/1KQHHp9OwgBI8W0lsE_zAk5oPQYGn5XJU/view?usp=sharing
+RUN gdown https://drive.google.com/uc?id=1KQHHp9OwgBI8W0lsE_zAk5oPQYGn5XJU
 
 # run server
 WORKDIR /ISD/projects/LISA/
