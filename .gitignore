@@ -1,0 +1,5 @@
+/docker/clipboard.txt
+/projects/LISA/.ipynb_checkpoints/*
+!/projects/LISA/.SOAP.ipynb.icloud
+*/.DS_Store
+/projects/LISA/output_light/last_checkpoint.pth 
