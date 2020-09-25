@@ -9,7 +9,8 @@ I made flask api server and web frontend to run the model and get result via htt
 
 [Try it!](https://master-instance-shadow-detection-gmlee329.endpoint.ainize.ai)
 
-**in local**
+**In local**
+
 It must need GPU so, [Nvidia-docker](https://github.com/NVIDIA/nvidia-docker) is needed.
 
 ```bash 
