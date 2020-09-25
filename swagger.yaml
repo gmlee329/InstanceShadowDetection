@@ -1,0 +1,62 @@
+
+penapi: 3.0.1
+
+info:
+  title: ainize-ISD-swagger
+    description: |
+	      ISD is Instance Shadow Detecion base on [Detectron2](https://github.com/facebookresearch/detectron2).  
+		        Instance shadow detection aims to find shadow instances paired with object instances.  
+				      You can POST image which is jpg or pnp type.  
+					        Response will be image with png type.  
+							      [Original Repo](https://github.com/stevewongv/InstanceShadowDetection) / [Github Repo](https://github.com/gmlee329/InstanceShadowDetection) / [Demo](https://master-instance-shadow-detection-gmlee329.endpoint.ainize.ai)
+								        
+										      How to use:
+											        * Upload a Image you want to detect shadow paired with object.
+													      * Execute and wait little time
+														    contact:
+															    name: Ainizer - gyumin Lee
+																  version: "2.0"
+																    license:
+																	    name: Apache License
+																		    url: https://github.com/gmlee329/InstanceShadowDetection/blob/master/LICENSE
+
+																			servers:
+																			  - url: https://master-instance-shadow-detection-gmlee329.endpoint.ainize.ai
+
+																			  paths:
+																			    /detection:
+																				    post:
+																					      requestBody:
+																						          required: true
+																								          description: | 
+																										            Upload a Image you want to detect shadow paired with object.  
+																													          <a id="sample" href="https://raw.githubusercontent.com/gmlee329/InstanceShadowDetection/master/projects/LISA/static/sample2.png">here is sample image</a>
+																															          content:
+																																	            multipart/form-data:
+																																				            schema:
+																																							              type: object
+																																										                properties:
+																																														                image:
+																																																		                  type: string
+																																																						                    format: binary
+																																																											            encoding:
+																																																														              files:
+																																																																	                  contentType: image/*
+
+																																																																					        responses:
+																																																																							        '200':
+																																																																									          description: success
+																																																																											            content:
+																																																																														            images/*:
+																																																																																	              schema:
+																																																																																				                  type: string
+																																																																																								                  format: binary
+																																																																																												          '400':
+																																																																																														            description: Bad Request
+																																																																																																	        
+																																																																																																			        '429':
+																																																																																																					          description: Busy to server, please retry again.
+
+																																																																																																							          '500':
+																																																																																																									            description: Server side error
+																																																																																																												          
