@@ -4,7 +4,7 @@ The original repo is [original repo](https://github.com/stevewongv/InstanceShado
 
 I made flask api server and web frontend to run the model and get result via http protocol.
 
-## how to run
+## How to run
 .. image:: https://ainize.ai/images/run_on_ainize_button.svg 
    :target: https://ainize.web.app/redirect?git_repo=https://github.com/woomurf/STT
    :alt: Run on Ainize
@@ -17,13 +17,13 @@ $ git clone https://github.com/gmlee329/InstanceShadowDetection.git
 $ docker build -t isd .
 $ docker run --gpus 0 -it -p <host port>:80 --name isd isd
 ```
-then it will run in local
-if you want to check the web page,
+Then it will run in local
+If you want to check the web page,
 install ngrok and enter the command below
 ```bash
 $ ~/ngrok http <hostport>
 ```
-then, you can run the model and get result via webpage. 
+Then, you can run the model and get result via webpage. 
 
 ## <a name="CitingLISA"></a> Citation
 If you use LISA, SOBA, or SOAP, please use the following BibTeX entry.
