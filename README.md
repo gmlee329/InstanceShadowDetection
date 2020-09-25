@@ -5,7 +5,7 @@ The original repo is [original repo](https://github.com/stevewongv/InstanceShado
 I made flask api server and web frontend to run the model and get result via http protocol.
 
 ## How to run
-[![Run on Ainize](https://ainize.ai/static/images/run_on_ainize_button.svg)](https://ainize.web.app/redirect?git_repo=https://github.com/psi1104/stargan-v2)
+[![Run on Ainize](https://ainize.ai/static/images/run_on_ainize_button.svg)](https://ainize.web.app/redirect?git_repo=https://github.com/gmlee329/InstanceShadowDetection)
 
 **in local**
 It must need GPU so, [Nvidia-docker](https://github.com/NVIDIA/nvidia-docker) is needed.
