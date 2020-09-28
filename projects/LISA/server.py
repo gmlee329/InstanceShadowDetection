@@ -36,7 +36,6 @@ BATCH_SIZE = 1
 CHECK_INTERVAL = 0.1
 
 # static variable
-paths = []
 INPUT_DIR = './input'
 RESULT_DIR = './result'
 POSIBLE_FORMAT = ['image/jpeg', 'image/jpg', 'image/png']
@@ -51,9 +50,15 @@ def handle_requests_by_batch():
                     requests_batch.append(requests_queue.get(timeout=CHECK_INTERVAL))
                 except Empty:
                     continue
+                
+            batch_outputs = []
 
-                for requests in requests_batch:
-                    requests['output'] = run(requests['input'][0])
+            for request in requests_batch:
+                batch_outputs.append(run(request["input"][0]))
+
+            for request, output in zip(requests_batch, batch_outputs):
+                request["output"] = output
+                
     except Exception as e:
         while not requests_queue.empty():
             requests_queue.get()
@@ -89,22 +94,23 @@ def image_to_byte(image):
 # run model
 def run(image_file):
     try:
+        # read image_file
         f_id = str(uuid.uuid4())
         f_name = secure_filename(image_file.filename)
         image_byte = image_file.read()
         image = byte_to_image(image_byte)
 
         # make input&result file folder
-        paths.append(os.path.join(INPUT_DIR, f_id))
-        paths.append(os.path.join(RESULT_DIR, f_id))
+        paths = [os.path.join(INPUT_DIR, f_id), os.path.join(RESULT_DIR, f_id)]
         os.makedirs(paths[0], exist_ok=True)
         os.makedirs(paths[1], exist_ok=True)
 
         # save image to input folder
         in_filename = os.path.join(paths[0], f_name)
         image.save(in_filename, quality=100, subsampling=0)
-        img = read_image(in_filename, format="BGR")
 
+        # run model
+        img = read_image(in_filename, format="BGR")
         predictions, visualized_output = demo.run_on_image(img)
 
         # save result to result folder
@@ -120,6 +126,12 @@ def run(image_file):
     except Exception as e:
         print(e)
         return 500
+
+    finally:
+        # remove input&output folder
+        if paths:
+            remove_file(paths)
+            paths.clear()
 
 # routing
 @app.route("/detection", methods=['POST'])
@@ -149,13 +161,8 @@ def detection():
         # send output
         byte_image = req['output']
 
-        # remove input&result folder
-        if paths:
-            remove_file(paths)
-            paths.clear()
-
         if byte_image == 500:
-            return jsonify({'message': 'Error! Please upload another file'}), 500
+            return jsonify({'message': 'Error! An unknown error occurred on the server'}), 500
         
         result = send_file(byte_image, mimetype="image/png")
         
@@ -163,7 +170,7 @@ def detection():
     
     except Exception as e:
         print(e)
-        return jsonify({'message': 'Error! Please upload another file'}), 400
+        return jsonify({'message': 'Error! Unable to process request'}), 400
 
 @app.route('/health')
 def health():
