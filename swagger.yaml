@@ -5,7 +5,7 @@ info:
   description: |
       ISD is Instance Shadow Detecion base on [Detectron2](https://github.com/facebookresearch/detectron2).  
       Instance shadow detection aims to find shadow instances paired with object instances.  
-      You can POST image which is jpg or pnp type.  
+      You can POST image which is jpg or png type.  
       Response will be image with png type.  
       [Original Repo](https://github.com/stevewongv/InstanceShadowDetection) / [Github Repo](https://github.com/gmlee329/InstanceShadowDetection) / [Demo](https://master-instance-shadow-detection-gmlee329.endpoint.ainize.ai)
       
@@ -14,7 +14,7 @@ info:
       * Execute and wait little time
   contact:
     name: Ainizer - gyumin Lee
-  version: "2.0"
+  version: "1.0"
   license:
     name: Apache License
     url: https://github.com/gmlee329/InstanceShadowDetection/blob/master/LICENSE
